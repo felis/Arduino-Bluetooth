@@ -15,7 +15,6 @@
 *****************************************************************************/
 #include "serial.h"
 #include "bt_h.h"
-#include "Spi.h"
 #include "Max3421e.h"
 #include "Usb.h"
 
@@ -45,8 +44,14 @@ void loop(void){
         SerialHandler();
         len = BT.Task(str);
         if(len > 0){
-            for(i = 0; i < len; i++)
+            for(i = 0; i < len; i++) {
+// Arduino 1.0 compatibility
+#if defined(ARDUINO) && ARDUINO >= 100
+                Serial.write(str[i]);
+#else
                 Serial.print(str[i], BYTE);
+#endif
+            }
             Serial.print("\r\n");
         }  
     }

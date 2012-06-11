@@ -17,7 +17,6 @@
 #define _BT_H_H_
 
 
-#include "Spi.h"
 #include "Max3421e.h"
 #include "Usb.h"
 
