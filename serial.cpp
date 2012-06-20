@@ -112,8 +112,14 @@ void SerialHandler(void){
 ///////////////////////////////////////////////////////////////////////////////////////
 void dbg(const int8_t * str){
     int8_t c;
-    while((c = pgm_read_byte(str++)))
+    while((c = pgm_read_byte(str++))) {
+// Arduino 1.0 compatibility
+#if defined(ARDUINO) && ARDUINO >= 100
+        Serial.write(c);
+#else
         Serial.print(c, BYTE);
+#endif
+    }
 }
 ///////////////////////////////////////////////////////////////////////////////////////
 void dbgn(const int8_t * str){
